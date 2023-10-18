@@ -1,0 +1,16 @@
+sep: ";"
+
+target: pcr
+features:
+  - age
+  - erihc
+  - prihc
+  - her2
+  - tstage
+  - nodalstatus
+  - grade
+
+categorical_features:
+  - erihc
+  - prihc
+  - her2
