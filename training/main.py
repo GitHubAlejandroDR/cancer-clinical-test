@@ -1,13 +1,14 @@
 import hydra
 from process import process_data
+from train_model import train
 # from evaluate_model import evaluate
-# from train_model import train
+
 
 """ Call the config file """
 @hydra.main(version_base=None, config_path="../config", config_name="main")
 def main(config):
     process_data(config)
-    # train(config)
+    train(config)
     # evaluate(config)
 
 
