@@ -11,7 +11,12 @@ from hydra.utils import to_absolute_path as abspath
 from omegaconf import DictConfig
 from sklearn.metrics import accuracy_score, f1_score
 from xgboost import XGBClassifier
+import os
 
+
+# os.environ['MLFLOW_TRACKING_USERNAME'] = 'GitHubAlejandroDR'
+# os.environ['MLFLOW_TRACKING_PASSWORD'] = '99f73425f37db3558a5a5f508d47e397f8348e04'
+# mlflow_tracking_ui: https://dagshub.com/GitHubAlejandroDR/cancer-clinical-test.mlflow
 logger = BaseLogger()
 
 
@@ -46,6 +51,7 @@ def log_metrics(**metrics: dict):
 @hydra.main(version_base=None, config_path="../config", config_name="main")
 def evaluate(config: DictConfig):
     mlflow.set_tracking_uri(config.mlflow_tracking_ui)
+    mlflow.set_experiment("clinical-cancer")
 
     with mlflow.start_run():
 
@@ -68,6 +74,9 @@ def evaluate(config: DictConfig):
         log_params(model, config.process.features)
         log_metrics(f1_score=f1, accuracy_score=accuracy)
 
+        mlflow.sklearn.log_model(model, "model")
+        mlflow.log_metric("f1-score", f1)
+        mlflow.log_metric("accuracy", accuracy)
 
 if __name__ == "__main__":
     evaluate()

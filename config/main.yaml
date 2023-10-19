@@ -32,4 +32,4 @@ model:
   path: ${model.dir}/${model.name}
 
 
-mlflow_tracking_ui: https://dagshub.com/GitHubAlejandroDR/cancer-clinical-test.mlflow
+mlflow_tracking_ui: file:\Users\aleja\Documents\github_repositories\cancer-clinical-test\mlruns\

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/aleja/Documents/github_repositories/cancer-clinical-test/mlruns/451279204975469772/194075c8f5954523ba241a0fb30cef50/artifacts
+end_time: 1697697562857
+entry_point_name: ''
+experiment_id: '451279204975469772'
+lifecycle_stage: active
+run_id: 194075c8f5954523ba241a0fb30cef50
+run_name: zealous-eel-93
+run_uuid: 194075c8f5954523ba241a0fb30cef50
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1697697556176
+status: 3
+tags: []
+user_id: aleja
