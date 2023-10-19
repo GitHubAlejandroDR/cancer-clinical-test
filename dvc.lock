@@ -1,0 +1,65 @@
+schema: '2.0'
+stages:
+  process_data:
+    cmd: python training/process.py
+    deps:
+    - path: config/main.yaml
+      hash: md5
+      md5: e1a3f754a3a3800c604c5e24d2ed28cf
+      size: 733
+    - path: data/raw
+      hash: md5
+      md5: a229b7b60f76e12effa06c0838f9dca7.dir
+      size: 20333188
+      nfiles: 1
+    - path: training/process.py
+      hash: md5
+      md5: ac0b37a64e3272df1c37e3f4d7a003ce
+      size: 1677
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: ba3d5037dbb652386c65c8703e3edad3.dir
+      size: 7720
+      nfiles: 4
+  train_model:
+    cmd: python training/train_model.py
+    deps:
+    - path: config/main.yaml
+      hash: md5
+      md5: e1a3f754a3a3800c604c5e24d2ed28cf
+      size: 733
+    - path: data/processed
+      hash: md5
+      md5: ba3d5037dbb652386c65c8703e3edad3.dir
+      size: 7720
+      nfiles: 4
+    - path: training/train_model.py
+      hash: md5
+      md5: 23ead57b50e7c376143e701eaab0ec2c
+      size: 3387
+    outs:
+    - path: models/xgboost
+      hash: md5
+      md5: 88efb6727ba56db07ba0576e4d110fe0
+      size: 12370
+  evaluate_model:
+    cmd: python training/evaluate_model.py
+    deps:
+    - path: config/main.yaml
+      hash: md5
+      md5: e1a3f754a3a3800c604c5e24d2ed28cf
+      size: 733
+    - path: data/processed
+      hash: md5
+      md5: ba3d5037dbb652386c65c8703e3edad3.dir
+      size: 7720
+      nfiles: 4
+    - path: models/xgboost
+      hash: md5
+      md5: 88efb6727ba56db07ba0576e4d110fe0
+      size: 12370
+    - path: training/evaluate_model.py
+      hash: md5
+      md5: dff635cda64ce968e6ed78c83dec8997
+      size: 2357
