@@ -14,3 +14,8 @@ categorical_features:
   - erihc
   - prihc
   - her2
+
+features_range: 
+  name: "age"
+  min: 0
+  max: 120
