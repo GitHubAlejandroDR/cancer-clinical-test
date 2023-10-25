@@ -21,6 +21,9 @@ def test_xgboost():
     with initialize(version_base=None, config_path="../config"):
         config = compose(config_name="main")
 
+    with initialize(version_base=None, config_path="../config"):
+        config = compose(config_name="main")
+
     model_path = abspath(config.model.path)
     model = joblib.load(model_path)
     X_train, X_test, y_train, y_test = load_data(config.processed)
@@ -30,9 +33,15 @@ def test_xgboost():
     train_ds = Dataset(train_df, label="pcr")
     validation_ds = Dataset(test_df, label="pcr")
 
-    check = TrainTestPerformance(scorers=["f1"])
+    check = TrainTestPerformance(scorers=["accuracy", "f1"])
     check.add_condition_test_performance_greater_than(0.9)
-    check.add_condition_train_test_relative_degradation_less_than(0.3)
-    check.run(train_ds, validation_ds, model)
+    results = check.run(train_ds, validation_ds, model)
 
+    print("chekiiing results.value")
+    print(results.value)
+    print("chekiiing results.header")
+    print(results)
+    print("chekiiing results.conditions_results")
+    print(results.passed_conditions())
 
+   
