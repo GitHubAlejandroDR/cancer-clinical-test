@@ -1,0 +1,12 @@
+on:
+    push:
+        branches:
+            - main 
+
+jobs:
+    print_test_code_workflow:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "test_code_workflow"
+
+
