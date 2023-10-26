@@ -53,11 +53,7 @@ Make sure to install these dependencies to run the tests successfully.
 
 ## Usage
 
-To run the test suite, use the testing framework that supports test steps (e.g., pytest with pytest-steps). You can execute the steps individually or as a suite to process and validate your data.
-
 ```python
 # To run the entire test suite
-$ pytest test_suite.py
+$ pytest /path_to_test_folder/
 
-# To run a specific test step
-$ pytest test_suite.py::test_step_name

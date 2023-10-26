@@ -22,14 +22,6 @@ Before running the code, make sure you have the following installed:
 - Joblib
 - Pandas
 
-## Usage
-To use this code, follow these steps:
-
-1. Initialize your Hydra configuration.
-2. Load the trained XGBoost model and test dataset.
-3. Run the `test_xgboost` function.
-4. The function will evaluate the model's performance and check that accuracy and F1-score are above 0.9.
-
 ## Inputs
 - A trained XGBoost model.
 - Test dataset for the XGBoost model.
@@ -38,4 +30,8 @@ To use this code, follow these steps:
 - Pass or fail status of the test.
 - Printed ROC AUC score on the test set.
 
+## Usage
 
+```python
+# To run the entire test suite
+$ pytest /path_to_test_folder/
