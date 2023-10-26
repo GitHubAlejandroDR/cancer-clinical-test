@@ -21,32 +21,72 @@ logger = BaseLogger()
 
 
 def load_data(path: DictConfig):
+    """
+    Load test data from CSV files.
+
+    Args:
+        path (DictConfig): Configuration specifying file paths.
+
+    Returns:
+        Tuple[pd.DataFrame, pd.Series]: A tuple containing the test features and labels.
+    """
     X_test = pd.read_csv(abspath(path.X_test.path))
     y_test = pd.read_csv(abspath(path.y_test.path))
     return X_test, y_test
 
-
 def load_model(model_path: str):
+    """
+    Load a machine learning model from a file.
+
+    Args:
+        model_path (str): The path to the saved model.
+
+    Returns:
+        XGBClassifier: The loaded XGBoost classifier model.
+    """
     return joblib.load(model_path)
 
-
 def predict(model: XGBClassifier, X_test: pd.DataFrame):
+    """
+    Make predictions using a trained XGBoost model.
+
+    Args:
+        model (XGBClassifier): The trained XGBoost classifier.
+        X_test (pd.DataFrame): The test data for making predictions.
+
+    Returns:
+        pd.Series: Predicted labels.
+    """
     return model.predict(X_test)
 
-
 def log_params(model: XGBClassifier, features: list):
+    """
+    Log model parameters and feature information.
+
+    Args:
+        model (XGBClassifier): The trained XGBoost classifier.
+        features (list): List of features used in the model.
+
+    Returns:
+        None
+    """
     logger.log_params({"model_class": type(model).__name__})
     model_params = model.get_params()
-
     for arg, value in model_params.items():
         logger.log_params({arg: value})
-
     logger.log_params({"features": features})
 
-
 def log_metrics(**metrics: dict):
-    logger.log_metrics(metrics)
+    """
+    Log evaluation metrics.
 
+    Args:
+        **metrics (dict): Named evaluation metrics and their values.
+
+    Returns:
+        None
+    """
+    logger.log_metrics(metrics)
 
 @hydra.main(version_base=None, config_path="../config", config_name="main")
 def evaluate(config: DictConfig):
@@ -54,10 +94,8 @@ def evaluate(config: DictConfig):
     mlflow.set_experiment("clinical-cancer")
 
     with mlflow.start_run():
-
         # Load data and model
         X_test, y_test = load_data(config.processed)
-
         model = load_model(abspath(config.model.path))
 
         # Get predictions
