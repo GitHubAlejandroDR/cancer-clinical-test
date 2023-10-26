@@ -15,14 +15,26 @@ from omegaconf import DictConfig
 from sklearn.metrics import accuracy_score
 from xgboost import XGBClassifier
 
+"""
+This script trains an XGBoost model using hyperparameter optimization.
+"""
 
 def load_data(path: DictConfig):
+    """
+    Load training and testing data.
+
+    Parameters:
+        path (DictConfig): Configuration path containing file paths.
+
+    Returns:
+        Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+            Training and testing data for features and labels.
+    """
     X_train = pd.read_csv(abspath(path.X_train.path))
     X_test = pd.read_csv(abspath(path.X_test.path))
     y_train = pd.read_csv(abspath(path.y_train.path))
     y_test = pd.read_csv(abspath(path.y_test.path))
     return X_train, X_test, y_train, y_test
-
 
 def get_objective(
     X_train: pd.DataFrame,
@@ -32,7 +44,20 @@ def get_objective(
     config: DictConfig,
     space: dict,
 ):
+    """
+    Define the optimization objective.
 
+    Parameters:
+        X_train (pd.DataFrame): Training data features.
+        y_train (pd.DataFrame): Training data labels.
+        X_test (pd.DataFrame): Testing data features.
+        y_test (pd.DataFrame): Testing data labels.
+        config (DictConfig): Configuration object.
+        space (dict): Hyperparameter search space.
+
+    Returns:
+        dict: Dictionary with 'loss', 'status', and the best model.
+    """
     model = XGBClassifier(
         use_label_encoder=config.model.use_label_encoder,
         objective=config.model.objective,
@@ -58,8 +83,17 @@ def get_objective(
     print("SCORE:", accuracy)
     return {"loss": -accuracy, "status": STATUS_OK, "model": model}
 
-
 def optimize(objective: Callable, space: dict):
+    """
+    Perform hyperparameter optimization.
+
+    Parameters:
+        objective (Callable): The optimization objective function.
+        space (dict): Hyperparameter search space.
+
+    Returns:
+        XGBClassifier: The best trained XGBoost model.
+    """
     trials = Trials()
     best_hyperparams = fmin(
         fn=objective,
@@ -75,11 +109,10 @@ def optimize(objective: Callable, space: dict):
     ]["model"]
     return best_model
 
-
 @hydra.main(version_base=None, config_path="../../config", config_name="main")
 def train(config: DictConfig):
-    """Function to train the model"""
-
+    """Train an XGBoost model with hyperparameter optimization."""
+    
     X_train, X_test, y_train, y_test = load_data(config.processed)
 
     # Define space
@@ -106,7 +139,6 @@ def train(config: DictConfig):
 
     # Save model
     joblib.dump(best_model, abspath(config.model.path))
-
 
 if __name__ == "__main__":
     train()
