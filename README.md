@@ -27,6 +27,8 @@
 - Streamline the model development lifecycle.
 
 ## Getting Started
+[Link Text](./clinical-cancer-template.pdf)
+<embed src="./clinical-cancer-template.pdf" width="500" height="375" type="application/pdf"></embed>
 
 [Provide instructions on how to set up and use the MLOps project locally. Include details on prerequisites and installation steps.]
 
