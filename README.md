@@ -30,9 +30,10 @@
 
 ![Template](clinical-cancer-template_page-0001.jpg)
 
-<!---
-<img src="clinical-cancer-template_page-0001.jpg" width="300" alt="GitHub Logo">
--->  
+![Template](prueba_animated.gif)
+
+<img src="prueba_animated.gif" width="300" alt="GitHub Logo">
+ 
 
 [Provide instructions on how to set up and use the MLOps project locally. Include details on prerequisites and installation steps.]
 
