@@ -27,11 +27,12 @@
 - Streamline the model development lifecycle.
 
 ## Getting Started
-[Link Text](clinical-cancer-template.pdf)
 
-<iframe src="https://github.com/GitHubAlejandroDR/cancer-clinical-test/clinical-cancer-template.pdf" width="10%" height="60px"></iframe>
+![Template](clinical-cancer-template_page-0001.jpg)
 
-<embed src="clinical-cancer-template.pdf" width="500" height="375" type="application/pdf"></embed>
+<!---
+<img src="clinical-cancer-template_page-0001.jpg" width="300" alt="GitHub Logo">
+-->  
 
 [Provide instructions on how to set up and use the MLOps project locally. Include details on prerequisites and installation steps.]
 
