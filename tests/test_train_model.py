@@ -4,20 +4,36 @@ from deepchecks.tabular import Dataset
 from deepchecks.tabular.checks import TrainTestPerformance
 from hydra import compose, initialize
 from hydra.utils import to_absolute_path as abspath
-from training.train_model import load_data
 
+from training.train_model import load_data
 
 """
     Test the performance of a trained XGBoost model on a test dataset.
 
-    The function uses Deepchecks to assess the accuracy and F1-score of the model on the test dataset.
-    It also checks the relative degradation between the train and test datasets. 
+    The function uses Deepchecks to assess the accuracy and F1-score 
+    of the model on the test dataset.
+
+    It also checks the relative degradation between the train and 
+    test datasets. 
 
     Returns:
         None
     """
 
+
 def test_xgboost():
+    """
+    Function to perform a test using an XGBoost model.
+
+    This function initializes a configuration, loads a trained XGBoost model, prepares the training and testing datasets,
+    and evaluates the model's performance based on defined conditions.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     with initialize(version_base=None, config_path="../config"):
         config = compose(config_name="main")
 
@@ -43,5 +59,3 @@ def test_xgboost():
     print(results)
     print("chekiiing results.conditions_results")
     print(results.passed_conditions())
-
-   

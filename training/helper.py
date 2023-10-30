@@ -1,13 +1,20 @@
 import mlflow
 from dagshub import DAGsHubLogger
 
+
 class BaseLogger:
+    """
+    Initialize a logging object for metrics and parameters.
+
+    This class provides a way to log metrics and parameters using both MLflow and DAGsHubLogger.
+    """
+
     def __init__(self):
         """
         Initialize a logging object for metrics and parameters.
 
-        This class provides a way to log metrics and parameters using both MLflow
-        and DAGsHubLogger.
+        This class provides a way to log metrics and parameters using both
+        MLflow and DAGsHubLogger.
 
         Returns:
             None

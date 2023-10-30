@@ -1,7 +1,5 @@
 import warnings
 
-warnings.filterwarnings(action="ignore")
-
 import hydra
 import joblib
 import mlflow
@@ -11,7 +9,8 @@ from hydra.utils import to_absolute_path as abspath
 from omegaconf import DictConfig
 from sklearn.metrics import accuracy_score, f1_score
 from xgboost import XGBClassifier
-import os
+
+warnings.filterwarnings(action="ignore")
 
 
 # os.environ['MLFLOW_TRACKING_USERNAME'] = 'GitHubAlejandroDR'
@@ -34,6 +33,7 @@ def load_data(path: DictConfig):
     y_test = pd.read_csv(abspath(path.y_test.path))
     return X_test, y_test
 
+
 def load_model(model_path: str):
     """
     Load a machine learning model from a file.
@@ -45,6 +45,7 @@ def load_model(model_path: str):
         XGBClassifier: The loaded XGBoost classifier model.
     """
     return joblib.load(model_path)
+
 
 def predict(model: XGBClassifier, X_test: pd.DataFrame):
     """
@@ -58,6 +59,7 @@ def predict(model: XGBClassifier, X_test: pd.DataFrame):
         pd.Series: Predicted labels.
     """
     return model.predict(X_test)
+
 
 def log_params(model: XGBClassifier, features: list):
     """
@@ -76,6 +78,7 @@ def log_params(model: XGBClassifier, features: list):
         logger.log_params({arg: value})
     logger.log_params({"features": features})
 
+
 def log_metrics(**metrics: dict):
     """
     Log evaluation metrics.
@@ -88,8 +91,22 @@ def log_metrics(**metrics: dict):
     """
     logger.log_metrics(metrics)
 
+
 @hydra.main(version_base=None, config_path="../config", config_name="main")
 def evaluate(config: DictConfig):
+    """
+    Evaluate the performance of a model using provided test data.
+
+    This function initializes the MLflow tracking URI and experiment, loads test data and the model,
+    generates predictions, calculates evaluation metrics (F1 score and accuracy), and logs the metrics
+    and model to MLflow.
+
+    Args:
+        config (DictConfig): The loaded configuration object.
+
+    Returns:
+        None
+    """
     mlflow.set_tracking_uri(config.mlflow_tracking_ui)
     mlflow.set_experiment("clinical-cancer")
 
@@ -115,6 +132,7 @@ def evaluate(config: DictConfig):
         mlflow.sklearn.log_model(model, "model")
         mlflow.log_metric("f1-score", f1)
         mlflow.log_metric("accuracy", accuracy)
+
 
 if __name__ == "__main__":
     evaluate()

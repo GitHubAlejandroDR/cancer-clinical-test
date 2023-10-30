@@ -1,17 +1,23 @@
-import pandas as pd
-import numpy as np
 import hydra
-from hydra.experimental import compose, initialize
+import pandas as pd
 from hydra.core.global_hydra import GlobalHydra
-import yaml
-from omegaconf import DictConfig
 from pandera import Check, Column, DataFrameSchema
 from pytest_steps import test_steps
 
-from training.process import get_features, process_null, process_outliers, process_duplicate, process_categorical
+from training.process import (get_features, process_categorical,
+                              process_duplicate, process_null,
+                              process_outliers)
+
 
 # Define a test suite with specific steps
-@test_steps("process_null", "process_duplicate", "get_features_step", "process_duplicate", "process_outliers", "process_categorical")
+@test_steps(
+    "process_null",
+    "process_duplicate",
+    "get_features_step",
+    "process_duplicate",
+    "process_outliers",
+    "process_categorical",
+)
 def test_processs_suite(test_step, steps_data):
     """
     Test suite to execute data processing steps.
@@ -30,6 +36,7 @@ def test_processs_suite(test_step, steps_data):
         process_outliers_step(steps_data)
     elif test_step == "process_categorical":
         process_categorical_step(steps_data)
+
 
 def process_null_step(steps_data):
     """
@@ -66,6 +73,7 @@ def process_null_step(steps_data):
     schema.validate(data)
     steps_data.data = data
 
+
 def process_duplicate_step(steps_data):
     """
     Remove duplicate rows from the data.
@@ -78,6 +86,7 @@ def process_duplicate_step(steps_data):
     duplicate_rows = steps_data.data[steps_data.data.duplicated()]
     # Check if there are duplicate rows based on the schema
     assert duplicate_rows.empty, "Duplicate rows found based on the schema."
+
 
 def get_features_step(steps_data):
     """
@@ -111,6 +120,7 @@ def get_features_step(steps_data):
     schema.validate(pd.concat([X, y], axis=1))
     steps_data.data = X
 
+
 def process_outliers_step(steps_data):
     """
     Check and process outliers in the data.
@@ -138,13 +148,16 @@ def process_outliers_step(steps_data):
     for column, criterion in validation_criteria.items():
         if isinstance(criterion, tuple):
             # Check if column values are within the specified range
-            assert (data[column] >= criterion[0]).all() and (data[column] <= criterion[1]).all()
+            assert (data[column] >= criterion[0]).all() and (
+                data[column] <= criterion[1]
+            ).all()
         elif isinstance(criterion, list):
             # Check if column values are in the specified list
             assert data[column].isin(criterion).all()
 
     GlobalHydra.instance().clear()
     steps_data.data = data
+
 
 def process_categorical_step(steps_data):
     """
@@ -178,6 +191,8 @@ def process_categorical_step(steps_data):
         }
     )
 
-    categorical_columns = data.select_dtypes(include=['category', 'object']).columns.tolist()
+    categorical_columns = data.select_dtypes(
+        include=["category", "object"]
+    ).columns.tolist()
     data = process_categorical(data, categorical_columns)
     schema.validate(data)

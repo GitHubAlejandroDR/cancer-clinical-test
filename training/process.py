@@ -2,13 +2,13 @@ import hydra
 import pandas as pd
 from hydra.utils import to_absolute_path as abspath
 from omegaconf import DictConfig
-from patsy import dmatrices
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 
 """
 This script processes raw data according to the provided configuration.
 """
+
 
 def get_data(raw_path: str, sep: str):
     """
@@ -24,6 +24,7 @@ def get_data(raw_path: str, sep: str):
     data = pd.read_csv(raw_path, sep=sep)
     return data
 
+
 def process_null(data: pd.DataFrame):
     """
     Remove rows with null or missing values from the dataset.
@@ -36,6 +37,7 @@ def process_null(data: pd.DataFrame):
     """
     return data.dropna(axis=0)
 
+
 def process_duplicate(data: pd.DataFrame):
     """
     Remove duplicate rows from the dataset.
@@ -47,6 +49,7 @@ def process_duplicate(data: pd.DataFrame):
         pd.DataFrame: Data with duplicate rows removed.
     """
     return data.drop_duplicates(keep="first")
+
 
 def get_features(target: str, features: list, data: pd.DataFrame):
     """
@@ -64,6 +67,7 @@ def get_features(target: str, features: list, data: pd.DataFrame):
     y, X = data[target], data[features]
     return y, X
 
+
 def process_outliers(data: pd.DataFrame, features_range: DictConfig):
     """
     Remove outliers from the dataset based on specified feature ranges.
@@ -75,7 +79,11 @@ def process_outliers(data: pd.DataFrame, features_range: DictConfig):
     Returns:
         pd.DataFrame: Data with outliers removed.
     """
-    return data[(data[features_range.name] <= features_range.max) & (data[features_range.name] >= features_range.min)]
+    return data[
+        (data[features_range.name] <= features_range.max)
+        & (data[features_range.name] >= features_range.min)
+    ]
+
 
 def process_dtypes(X: pd.DataFrame):
     """
@@ -88,6 +96,7 @@ def process_dtypes(X: pd.DataFrame):
         pd.DataFrame: Processed feature data.
     """
     return X
+
 
 def process_categorical(X: pd.DataFrame, categorical_features: list):
     """
@@ -102,8 +111,11 @@ def process_categorical(X: pd.DataFrame, categorical_features: list):
     """
     encoder = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
     categorical_encoded = encoder.fit_transform(X[categorical_features])
-    X = pd.concat([X.iloc[:, ~X.columns.isin(categorical_features)], categorical_encoded], axis=1)
+    X = pd.concat(
+        [X.iloc[:, ~X.columns.isin(categorical_features)], categorical_encoded], axis=1
+    )
     return X
+
 
 @hydra.main(version_base=None, config_path="../config", config_name="main")
 def process_data(config: DictConfig):
@@ -130,13 +142,16 @@ def process_data(config: DictConfig):
 
     X = process_categorical(X, config.process.categorical_features)
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=7)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=7
+    )
 
     # Save data
     X_train.to_csv(abspath(config.processed.X_train.path), index=False)
     X_test.to_csv(abspath(config.processed.X_test.path), index=False)
     y_train.to_csv(abspath(config.processed.y_train.path), index=False)
     y_test.to_csv(abspath(config.processed.y_test.path), index=False)
+
 
 if __name__ == "__main__":
     process_data()
