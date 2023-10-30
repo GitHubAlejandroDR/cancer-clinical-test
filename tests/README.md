@@ -8,8 +8,8 @@ This introduction provides an overview of two separate documentation files: one 
 
 ## Usage
 
-- For XGBoost model testing, follow the instructions provided in the [XGBoost Model Testing Documentation](XGBoost_Model_Testing_Documentation.md).
+- For XGBoost model testing, follow the instructions provided in the [XGBoost Model Testing Documentation](test_train_model_doc.md).
 
-- To run the test suite for data processing, refer to the [Test Suite Documentation](Test_Suite_Documentation.md) for details on each test step.
+- To run the test suite for data processing, refer to the [Test Suite Documentation](tests_process_doc.md) for details on each test step.
 
 Please make sure you have the necessary dependencies and data prepared according to the documentation.
