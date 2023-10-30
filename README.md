@@ -1,41 +1,55 @@
-# MLOps Project Name
-
-## Overview
-
-[Provide a brief introduction to your MLOps project. Explain its purpose, the machine learning models it manages, and its role in the deployment and monitoring of those models.]
+# ML Clinical PCR Prediction Project
 
 ## Table of Contents
 
 - [Project Description](#project-description)
+- [Technologies](#Technologies)
+  - [Key Features](#key-features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Project Structure](#project-structure)
 - [Usage](#usage)
-- [Model Management](#model-management)
-- [Continuous Integration/Continuous Deployment (CI/CD)](#continuous-integrationcontinuous-deployment-cicd)
-- [Monitoring](#monitoring)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+
+
+
 
 ## Project Description
 
-[Explain the purpose and objectives of your MLOps project. Describe its role in managing machine learning models, from development to deployment and monitoring.]
+In this project, an MLOps setup is applied to address the challenge of pathologic complete response (PCR) in cancer. Clinical data downloaded from cBioPortal is utilized as the primary dataset. The project places special emphasis on data and model version control using tools like DVC and MLFlow. Moreover, it focuses on rigorous data and model testing, employing unit testing with Pytest, as well as additional libraries such as Pandera or Deepchecks.
 
-- Model versioning for easy tracking and comparison.
-- Streamline the model development lifecycle.
+
+## Technologies
+
+| **Step** | **Technology** |
+|---------|---------------|
+| Package Dependency | Poetry |
+| Configuration Modularity | Hydra |
+| Data Versioning | DVC (Data Version Control) |
+| Model Versioning | MLFlow |
+| Hyperparameters Optimization | HyperOpt |
+| Unit Testing | Pytest |
+| Data Testing | Pandera |
+| Model Testing | Deepcheck |
+
+### Key Features
+
+- **MLOps Implementation:** The project adopts a structured MLOps approach that includes careful consideration of package dependency management using Poetry and configuration modularity with Hydra.
+- **Version Control:** Leveraging tools such as DVC for managing data versions and MLFlow for tracking model versions.
+- **Hyperparameter Optimization:** Implementing HyperOpt to fine-tune and optimize model hyperparameters.
+- **Testing Framework:** Rigorous testing methodologies involving Pytest for unit testing, Pandera for data testing, and Deepcheck for model testing.
+
 
 ## Getting Started
 
-![Template](clinical-cancer-template_page-0001.jpg)
+<!--
+![Template](docs/media/clinical-cancer-template_page-0001.jpg)
 
-![Template](prueba_animated.gif)
+![Template](docs/mediaprueba_animated.gif)
 
-<img src="prueba_animated.gif" width="300" alt="GitHub Logo">
+<img src="docs/mediaprueba_animated.gif" width="300" alt="GitHub Logo">
  
-
-[Provide instructions on how to set up and use the MLOps project locally. Include details on prerequisites and installation steps.]
+-->
 
 ### Prerequisites
 
@@ -80,135 +94,22 @@ Install the project's dependencies using Poetry. It will read the pyproject.toml
 
 The MLOps project is structured to maintain a well-organized and scalable workflow for managing machine learning models, data pipelines, and automation processes. Below is an overview of the key directories and their respective roles within the project:
 
-- **`/models`**: This directory houses trained machine learning models and their associated metadata.
+- **`/.github`**: Github actions parent foder
 
-  - **`/model1`**: Subdirectories for each specific model version.
-    - `model.pkl`: The trained model file.
-    - `metadata.json`: Model metadata, including hyperparameters and performance metrics.
+   - **`/worflows`**: Github action workflows configurations
 
-- **`/data`**: Data-related files, datasets, and data versioning.
+- **`/config`**: Main configuration file and folders with the data processing and model configurations parameters.
 
-  - **`/datasets`**: Raw and processed datasets.
-  - **`/features`**: Feature engineering scripts and transformations.
-
-- **`/pipelines`**: Data processing and ML pipeline definitions.
-
-  - **`/data_preprocessing`**: Scripts for data cleaning, transformation, and preprocessing.
-  - **`/model_training`**: Machine learning model training and evaluation pipelines.
-  - **`/deployment`**: Deployment automation scripts for model serving.
-
-- **`/notebooks`**: Jupyter notebooks for exploratory data analysis (EDA) and model prototyping.
-
-- **`/scripts`**: Utility scripts for various tasks, including data extraction, monitoring, and reporting.
-
-- **`/config`**: Configuration files for environment settings, model parameters, and pipeline configurations.
-
-- **`/tests`**: Unit tests and integration tests to ensure the functionality and reliability of pipelines and models.
+  - **`/model`**: Configurations files with model hyperparameters values
+  - **`/process`**: Configuration files with parameters applied in data processing step.
 
 - **`/docs`**: Project documentation, including guidelines, READMEs, and project-specific information.
 
-- **`/logs`**: Log files generated by pipelines, models, and automation processes.
+  - **`/media`**: Media files used in documentation files
 
-- **`/docker`**: Docker-related files for containerization and environment setup.
+- **`/notebooks`**: Jupyter notebooks for exploratory data analysis (EDA) and model prototyping.
 
-- **`/deployments`**: Scripts and configurations for model deployment, scaling, and monitoring.
+- **`/tests`**: Data and model unit tests.
 
-This structured layout ensures that the project remains organized and follows best practices for reproducibility, scalability, and collaboration. It enables easy navigation, management, and tracking of models and pipelines in the MLOps workflow.
+- **`/training`**: Scripts applied in he training step..
 
-
-## Model Management
-[Explain how models are managed within the project. Describe the model development process, version control, and how to add, update, or remove models.]
-
-Model versioning and tracking through Git.
-
-## Continuous Integration/Continuous Deployment (CI/CD)
-[Discuss the project's CI/CD pipeline. Explain how code changes, including model updates, are tested, built, and deployed automatically.]
-
-Automated testing using GitHub Actions.
-Deployment to a cloud-based environment.
-
-## Monitoring
-[Detail how model performance and system health are monitored. Describe the tools and metrics used for tracking model behavior in production.]
-
-## Monitoring with Prometheus and Grafana.
-Performance metrics available in the project dashboard.
-
-## Contributing
-[Explain how others can contribute to the project. Provide guidelines for submitting code changes, bug reports, or feature requests.]
-
-Fork the repository and create a feature branch.
-Submit a pull request with your changes.
-
-## License
-[Specify the project's license. If it's open source, provide the full license text or a link to it.]
-
-This project is licensed under the MIT License.# MLOps Project Name
-
-## Overview
-
-[Provide a brief introduction to your MLOps project. Explain its purpose, the machine learning models it manages, and its role in the deployment and monitoring of those models.]
-
-## Table of Contents
-
-- [Project Description](#project-description)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Usage](#usage)
-- [Model Management](#model-management)
-- [Continuous Integration/Continuous Deployment (CI/CD)](#continuous-integrationcontinuous-deployment-cicd)
-- [Monitoring](#monitoring)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-
-## Project Description
-
-[Explain the purpose and objectives of your MLOps project. Describe its role in managing machine learning models, from development to deployment and monitoring.]
-
-## Getting Started
-
-[Provide instructions on how to set up and use the MLOps project locally. Include details on prerequisites and installation steps.]
-
-### Prerequisites
-
-[List the software, libraries, and tools required for the project. Include version information where necessary.]
-
-### Installation
-
-[Provide step-by-step instructions for installing and configuring the project. Include any necessary environment setup.]
-
-## Project Structure
-
-[Explain the organization and structure of the project. Describe the key directories, files, and their respective roles.]
-
-## Usage
-
-[Detail how to use the MLOps project. Include instructions for common tasks, such as model development, training, deployment, and monitoring.]
-
-## Model Management
-
-[Explain how models are managed within the project. Describe the model development process, version control, and how to add, update, or remove models.]
-
-## Continuous Integration/Continuous Deployment (CI/CD)
-
-[Discuss the project's CI/CD pipeline. Explain how code changes, including model updates, are tested, built, and deployed automatically.]
-
-## Monitoring
-
-[Detail how model performance and system health are monitored. Describe the tools and metrics used for tracking model behavior in production.]
-
-## Contributing
-
-[Explain how others can contribute to the project. Provide guidelines for submitting code changes, bug reports, or feature requests.]
-
-## License
-
-[Specify the project's license. If it's open source, provide the full license text or a link to it.]
-
-## Acknowledgments
-
-[Give credit to individuals, organizations, or projects that contributed to or inspired your MLOps project. Acknowledge any external tools or libraries used.]
-
-[Optional: Add additional sections as needed, such as "Best Practices" or "Troubleshooting" sections.]
